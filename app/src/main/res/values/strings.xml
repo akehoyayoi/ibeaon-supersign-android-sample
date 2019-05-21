@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Central</string>
+    <string name="kuusha_text">空車</string>
+    <string name="geisha_text">迎車</string>
+    <string name="jissha_text">実車</string>
+    <string name="shiharai_text">支払</string>
+    <string name="warimashi">割増</string>
+</resources>
