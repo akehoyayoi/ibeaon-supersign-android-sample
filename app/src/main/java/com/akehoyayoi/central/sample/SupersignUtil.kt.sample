@@ -1,0 +1,7 @@
+package com.akehoyayoi.central.sample
+
+object SupersignUtil {
+    const val API_URL = "deployed api URL is here <https://github.com/akehoyayoi/car_info_api>"
+    const val DEFAULT_CAR_NO = "9999"
+    const val DEFAULT_UUID = "00000000-0000-0000-0000-000000000000"
+}
