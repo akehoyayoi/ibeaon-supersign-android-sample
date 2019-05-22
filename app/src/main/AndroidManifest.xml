@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- BLE対応端末専用 -->
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
     <!-- Android M より、位置情報の許可も必須 -->

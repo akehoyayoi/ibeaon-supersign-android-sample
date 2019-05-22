@@ -8,6 +8,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.github.kittinunf.fuel.android.extension.responseJson
+import com.github.kittinunf.fuel.httpGet
 import org.altbeacon.beacon.*
 
 class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
@@ -23,9 +25,7 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
 
     private lateinit var mBeaconManager: BeaconManager
 
-    private val uuidString: String = "01122334-4556-6778-899A-ABBCCDDEEFF0"
-    private val uuid = Identifier.parse(uuidString)
-    private fun mRegion() = Region(packageName, uuid, null, null)
+    private fun mRegion() = Region(packageName, null, null, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +34,29 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
 
         val syncButton = findViewById<Button>(R.id.syncButton)
         syncButton.setOnClickListener { view ->
+            val carNo = findViewById<TextView>(R.id.carNoText)
             Toast.makeText(this@MainActivity, "Tapped", Toast.LENGTH_SHORT).show()
-            
+            (SupersignUtil.API_URL + carNo.text).httpGet().responseJson { request, response, result ->
+                val uuid = findViewById<TextView>(R.id.webDebugView)
+                when(result) {
+                    is com.github.kittinunf.result.Result.Success -> {
+                        val json = result.value.obj()
+                        val result =json.get("uuid") as String
+                        uuid.text = result
+                    }
+                    is com.github.kittinunf.result.Result.Failure -> {
+                        uuid.text = "-"
+                    }
+                }
+            }
+        }
+        syncButton.setOnLongClickListener { view ->
+            Toast.makeText(this@MainActivity, "LongTapped", Toast.LENGTH_SHORT).show()
+            val carNo = findViewById<TextView>(R.id.carNoText)
+            carNo.text = SupersignUtil.DEFAULT_CAR_NO
+            val uuid = findViewById<TextView>(R.id.webDebugView)
+            uuid.text = SupersignUtil.DEFAULT_UUID
+            true
         }
     }
 
@@ -102,6 +123,9 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
     }
 
     private val mRangeNotifier = RangeNotifier { beacons, region ->
+        val webDebug = findViewById<TextView>(R.id.webDebugView)
+        if(webDebug.text == "-") return@RangeNotifier
+
         val kuusha = findViewById<TextView>(R.id.kuussha)
         val geisha = findViewById<TextView>(R.id.geisha)
         val jissya = findViewById<TextView>(R.id.jissya)
@@ -109,10 +133,9 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
         val warimashi = findViewById<TextView>(R.id.warimashi)
         val bleDebug = findViewById<TextView>(R.id.bleDebugView)
 
-        // 検出したビーコンの情報を全部Logに書き出す
-        for (beacon in beacons) {
-            // TODO : データの取得(取得後にデータがある場合に表示を切り替える)
+        val uuid = Identifier.parse(webDebug.text.toString())
 
+        for (beacon in beacons) {
             if(beacon.id1 == uuid) {
                 kuusha.visibility = android.view.View.INVISIBLE
                 geisha.visibility = android.view.View.INVISIBLE
@@ -129,6 +152,7 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
                 bleDebug.text = "UUID:" + beacon.id1 + ", major:" + beacon.id2 +
                         ", minor:" + beacon.id3 + ", Distance:" + beacon.distance +
                         ",RSSI" + beacon.rssi + ", TxPower" + beacon.txPower
+                return@RangeNotifier
             }
         }
     }

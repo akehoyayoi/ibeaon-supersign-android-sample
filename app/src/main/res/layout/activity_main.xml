@@ -60,7 +60,7 @@
             android:layout_width="wrap_content" app:layout_constraintStart_toStartOf="parent"
     />
     <TextView
-            android:text="UUID"
+            android:text="-"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/webDebugView"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
@@ -69,7 +69,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:text="@string/_1000"
             android:ems="10"
             android:id="@+id/carNoText"
