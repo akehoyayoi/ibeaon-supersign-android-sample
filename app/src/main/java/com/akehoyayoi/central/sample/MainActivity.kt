@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
 
     override fun onBeaconServiceConnect() {
 
+        // Scan間隔を調整
+        mBeaconManager.foregroundBetweenScanPeriod = 1000L
 
         //Beacon領域の入退場を検知するイベント設定
         mBeaconManager.addMonitorNotifier(mMonitorNotifier)
