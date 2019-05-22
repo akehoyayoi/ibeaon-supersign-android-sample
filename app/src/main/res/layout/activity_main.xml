@@ -59,5 +59,30 @@
             app:layout_constraintBottom_toBottomOf="parent" android:textAlignment="center" android:textSize="12sp"
             android:layout_width="wrap_content" app:layout_constraintStart_toStartOf="parent"
     />
+    <TextView
+            android:text="UUID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/webDebugView"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+            android:textAlignment="viewStart" android:textSize="12sp"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="@string/_1000"
+            android:ems="10"
+            android:id="@+id/carNoText"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/syncButton"
+            android:textAlignment="textEnd" android:hint="@string/car_no"
+            app:layout_constraintStart_toEndOf="@+id/webDebugView" android:layout_marginStart="8dp"/>
+    <Button
+            android:text="@string/sync"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/syncButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+    />
 
 </android.support.constraint.ConstraintLayout>

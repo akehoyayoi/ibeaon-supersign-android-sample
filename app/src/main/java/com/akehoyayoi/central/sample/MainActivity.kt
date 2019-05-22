@@ -5,7 +5,9 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import org.altbeacon.beacon.*
 
 class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
@@ -29,6 +31,12 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         lifecycle.addObserver(mLifeCycle)
+
+        val syncButton = findViewById<Button>(R.id.syncButton)
+        syncButton.setOnClickListener { view ->
+            Toast.makeText(this@MainActivity, "Tapped", Toast.LENGTH_SHORT).show()
+            
+        }
     }
 
     override fun onDestroy() {

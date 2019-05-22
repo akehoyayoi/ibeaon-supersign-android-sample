@@ -5,4 +5,7 @@
     <string name="jissha_text">実車</string>
     <string name="shiharai_text">支払</string>
     <string name="warimashi">割増</string>
+    <string name="_1000">1000</string>
+    <string name="car_no">car_no</string>
+    <string name="sync">連携</string>
 </resources>
