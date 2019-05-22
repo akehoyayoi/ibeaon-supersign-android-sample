@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
 
         val syncButton = findViewById<Button>(R.id.syncButton)
         syncButton.setOnClickListener { view ->
+            // TODO : プロダクション導入時必須事項 … UIはメインスレッドで更新
             val carNo = findViewById<TextView>(R.id.carNoText)
             Toast.makeText(this@MainActivity, "Tapped", Toast.LENGTH_SHORT).show()
             (SupersignUtil.API_URL + carNo.text).httpGet().responseJson { request, response, result ->
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
             }
         }
         syncButton.setOnLongClickListener { view ->
+            // TODO : プロダクション導入時必須事項 … UIはメインスレッドで更新
             Toast.makeText(this@MainActivity, "LongTapped", Toast.LENGTH_SHORT).show()
             val carNo = findViewById<TextView>(R.id.carNoText)
             carNo.text = SupersignUtil.DEFAULT_CAR_NO
@@ -123,6 +125,7 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
     }
 
     private val mRangeNotifier = RangeNotifier { beacons, region ->
+        // TODO : プロダクション導入時必須事項 … UIはメインスレッドで更新
         val webDebug = findViewById<TextView>(R.id.webDebugView)
         if(webDebug.text == "-") return@RangeNotifier
 
