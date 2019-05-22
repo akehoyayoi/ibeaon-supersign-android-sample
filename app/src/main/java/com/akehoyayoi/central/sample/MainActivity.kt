@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
         val jissya = findViewById<TextView>(R.id.jissya)
         val shiharai = findViewById<TextView>(R.id.shiharai)
         val warimashi = findViewById<TextView>(R.id.warimashi)
+        val bleDebug = findViewById<TextView>(R.id.bleDebugView)
 
         // 検出したビーコンの情報を全部Logに書き出す
         for (beacon in beacons) {
@@ -115,12 +116,10 @@ class MainActivity : AppCompatActivity(), IActivityLifeCycle, BeaconConsumer {
                     "8" -> geisha.visibility = android.view.View.VISIBLE
                     "16" -> shiharai.visibility = android.view.View.VISIBLE
                 }
+                bleDebug.text = "UUID:" + beacon.id1 + ", major:" + beacon.id2 +
+                        ", minor:" + beacon.id3 + ", Distance:" + beacon.distance +
+                        ",RSSI" + beacon.rssi + ", TxPower" + beacon.txPower
             }
-            Log.d(TAG, "UUID:" + beacon.id1 + ", major:" + beacon.id2 +
-                    ", minor:" + beacon.id3 + ", Distance:" + beacon.distance +
-                    ",RSSI" + beacon.rssi + ", TxPower" + beacon.txPower)
-
         }
     }
-
 }
